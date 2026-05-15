@@ -124,7 +124,7 @@ function normalize(p) {
   };
 }
 
-export async function fetchByCategory({ categoryId, priceRange = 5000 }) {
+export async function fetchByCategory({ categoryId, priceRange = 0 }) {
   const allItems = [];
   const seen = new Set();
   let plusNum = 500;
@@ -215,23 +215,19 @@ export async function fetchByCategory({ categoryId, priceRange = 5000 }) {
         // 종료 조건:
         // - 서버가 더 이상 주지 않음 (0개)
         // - 페이지 크기 미만(마지막 페이지로 추정)
-        if (products.length === 0 && products.length < pageSize) {
-          if (breakNo === 2) {
-            console.log(`Price: ${minPrice}~${maxSalePrice}`);
-            console.log("allItems", allItems.length);
-            console.log("pageItemNum", pageItemNum);
-            if (pageItemNum < 200) {
-              minPrice += plusNum;
-              plusNum = plusNum * 1.05;
-              break;
-            } else {
-              minPrice += plusNum;
-              break;
-            }
+        if (products.length === 0) {
+          console.log(`Price: ${minPrice}~${maxSalePrice}`);
+          console.log("allItems", allItems.length);
+          console.log("pageItemNum", pageItemNum);
+
+          minPrice += plusNum;
+
+          if (pageItemNum < 300) {
+            plusNum = Math.floor(plusNum * 1.5);
           }
-          breakNo++;
+
+          break;
         } else {
-          breakNo = 0;
           pageNo++;
         }
       }
