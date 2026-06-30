@@ -1,14 +1,14 @@
 name: Run Playwright Crawler Daily
 
-on:
-  schedule:
-    - cron: "30 */6 * * *" # 실행 시각(KST): 09:30, 15:30, 21:30, 03:30(+1일)
-  workflow_dispatch:
-
 # on:
 #   schedule:
-#     - cron: "30 15,21,3,9 * * *" # 실행 시각(KST): 00:30, 06:30, 12:30, 18:30
+#     - cron: "30 */6 * * *" # 실행 시각(KST): 09:30, 15:30, 21:30, 03:30(+1일)
 #   workflow_dispatch:
+
+on:
+  schedule:
+    - cron: "30 15,21,3,9 * * *" # 실행 시각(KST): 00:30, 06:30, 12:30, 18:30
+  workflow_dispatch:
 
 jobs:
   run-crawler:
