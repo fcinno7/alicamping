@@ -24,6 +24,7 @@ import {
 import { withRetry } from "./utils/withRetry.js";
 import { fetchByCategory } from "./utils/fetchByCategory.js";
 import { computePriceFields } from "./utils/computePriceFields.js";
+import { convertBrandNamesToKorean } from "./utils/convertBrandNamesToKorean.js";
 
 const SYNONYM_KEY_MAP = { 색깔: "색상" };
 
@@ -743,13 +744,13 @@ const norm = (v) =>
   // 단일 데이터베이스 요청
 
   // const categoryRes = async () => {
-  //   let res = await ProductDetail.find({ _id: "1005012200259825" })
+  //   let res = await ProductDetail.find({ _id: "4000883842194" })
   //     .populate("cId1", "cId cn")
   //     .populate("cId2", "cId cn")
   //     .lean({ virtuals: true });
 
   //   // listTasks.item.push(...items);
-  //   listTasks.dataBaseRes.push({ _id: "1005012200259825" });
+  //   listTasks.dataBaseRes.push({ _id: "4000883842194" });
   //   listTasks.dataBaseRes.push(...res);
   // };
 
@@ -977,7 +978,7 @@ const norm = (v) =>
           }
 
           if (info.title && stripForCompare(info.title) !== "") {
-            baseDoc.tt = info.title;
+            baseDoc.tt = convertBrandNamesToKorean(info.title);
           }
           if (info.product_score && Number(info.product_score) !== 0) {
             baseDoc.ps = info.product_score;
