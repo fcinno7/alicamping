@@ -194,6 +194,44 @@ const brandRules = [
     트러스트파이어: "트러스트파이어(Trustfire)",
     Trustfire: "트러스트파이어(Trustfire)",
   },
+  //   ----------------------------리베로 -------------------------------------------
+
+  {
+    "바람막이 10단 (M)": "리베로 바람막이 10단 (M)",
+  },
+  {
+    "1+1+1 발키리 LED 랜턴 3개 세트": "리베로 1+1+1 발키리 LED 랜턴 3개 세트",
+  },
+
+  //   ----------------------------마운틴이큅먼트 -------------------------------------------
+  {
+    마운틴이큅먼트: "마운틴이큅먼트(MOUNTAIN EQUIPMENT)",
+    마운틴이퀴먼트: "마운틴이큅먼트(MOUNTAIN EQUIPMENT)",
+    "MOUNTAIN EQUIPMENT": "마운틴이큅먼트(MOUNTAIN EQUIPMENT)",
+  },
+
+  {
+    "알루미늄 타프폴 280CM": "마운틴이큅먼트 알루미늄 타프폴 280CM",
+  },
+  {
+    "미니 헥사 타프II": "마운틴이큅먼트 미니 헥사 타프II",
+  },
+  {
+    "이글 미니 가스 히터": "마운틴이큅먼트 이글 미니 가스 히터",
+  },
+  {
+    "듀랄루민 타프폴 125CM": "마운틴이큅먼트 듀랄루민 타프폴 125CM",
+  },
+  {
+    "ME 멀티 랜턴 스탠드 ll": "마운틴이큅먼트 ME 멀티 랜턴 스탠드 ll",
+  },
+  {
+    "조리도구 7종 세트": "마운틴이큅먼트 조리도구 7종 세트",
+  },
+  {
+    "ME 워터백": "마운틴이큅먼트 ME 워터백",
+  },
+
   //   ----------------------------3f ul gear -------------------------------------------
   {
     "3f ul 기어": "3f ul gear",
@@ -561,18 +599,19 @@ export function convertBrandNamesToKorean(title) {
         .map(escapeRegExp)
         .join("|");
 
+      const letter = String.raw`[a-zA-Z\p{Script=Hangul}]`;
+
       const pattern = new RegExp(
         [
-          // 이미 변환된 표기는 통째로 처리
-          escapeRegExp(replacement),
-
-          // 영문(한글), 한글(영문) 형태 처리
-          `(?:${aliasPattern})\\s*\\(\\s*(?:${aliasPattern})\\s*\\)`,
-
-          // 현재 검색어
-          escapeRegExp(keyword),
-        ].join("|"),
-        "i",
+          `(?<!${letter})`,
+          `(?:${[
+            escapeRegExp(replacement),
+            `(?:${aliasPattern})\\s*\\(\\s*(?:${aliasPattern})\\s*\\)`,
+            escapeRegExp(keyword),
+          ].join("|")})`,
+          `(?!${letter})`,
+        ].join(""),
+        "iu",
       );
 
       if (!pattern.test(title)) continue;
