@@ -28,7 +28,7 @@ import { convertBrandNamesToKorean } from "./utils/convertBrandNamesToKorean.js"
 
 const SYNONYM_KEY_MAP = { 색깔: "색상" };
 
-const limit = pLimit(10); // 동시에 10개만 실행
+const limit = pLimit(7); // 동시에 10개만 실행
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  실패 무해 try/catch, 배열 정규화
