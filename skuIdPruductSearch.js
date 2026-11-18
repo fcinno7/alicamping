@@ -59,7 +59,6 @@ export async function getSkuDetail(productId) {
     const form = { ...params, sign };
 
     const data = await postAli(form);
-    console.log("data", data);
 
     // API 에러 우선 처리
     if (data?.error_response) {
@@ -101,7 +100,7 @@ export async function getSkuDetail(productId) {
     //   },
     // };
 
-    console.log("result", result.ae_item_sku_info);
+    console.log("result", result);
 
     return result;
   } catch (e) {
@@ -109,4 +108,4 @@ export async function getSkuDetail(productId) {
   }
 }
 
-// getSkuDetail(1005006967488383);
+// getSkuDetail(1005008391896449);
